@@ -1,0 +1,38 @@
+{
+  "name": "chess-recall",
+  "version": "0.1.0",
+  "description": "Browser-based chess memory training with reusable TypeScript logic",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "tsc --noEmit && vite build",
+    "test": "vitest run",
+    "preview": "vite preview --host 0.0.0.0",
+    "build:lib": "tsc -p tsconfig.lib.json",
+    "prepack": "npm run build:lib"
+  },
+  "keywords": [],
+  "author": "Av",
+  "license": "GPL-3.0-or-later",
+  "dependencies": {
+    "@lichess-org/chessground": "^10.5.0",
+    "chessops": "^0.15.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.65.1",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.8",
+    "vitest": "^5.1.1"
+  },
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js"
+    }
+  },
+  "files": [
+    "lib",
+    "LICENSE",
+    "README.md"
+  ]
+}
