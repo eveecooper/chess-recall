@@ -4,11 +4,12 @@
   "description": "Browser-based chess memory training with reusable TypeScript logic",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
-    "build": "tsc --noEmit && vite build",
+    "build": "tsc --noEmit && vite build && node scripts/build-sw.mjs",
     "test": "vitest run",
     "preview": "vite preview --host 0.0.0.0",
     "build:lib": "tsc -p tsconfig.lib.json",
-    "prepack": "npm run build:lib"
+    "prepack": "npm run build:lib",
+    "test:browser": "node tests/browser.mjs"
   },
   "keywords": [],
   "author": "Av",
@@ -31,8 +32,17 @@
     }
   },
   "files": [
-    "lib",
+    "lib/*.js",
+    "lib/*.d.ts",
     "LICENSE",
     "README.md"
-  ]
+  ],
+  "engines": {
+    "node": ">=24"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eveecooper/chess-recall.git"
+  },
+  "homepage": "https://eveecooper.github.io/chess-recall/"
 }

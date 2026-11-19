@@ -1,0 +1,10 @@
+import {readdir,readFile,writeFile} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+const assets=(await readdir('dist/assets')).map(f=>'assets/'+f);
+const hash=createHash('sha256');for(const f of ['index.html',...assets])hash.update(await readFile('dist/'+f));
+const name='chess-recall-'+hash.digest('hex').slice(0,12);
+await writeFile('dist/sw.js',`const CACHE=${JSON.stringify(name)};const FILES=${JSON.stringify(['./','index.html',...assets])};
+self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(FILES)).then(()=>self.skipWaiting())));
+self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key.startsWith('chess-recall-')&&key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim())));
+self.addEventListener('fetch',event=>{const u=new URL(event.request.url);if(event.request.method!=='GET'||u.origin!==location.origin)return;if(event.request.mode==='navigate'){event.respondWith(fetch(event.request).catch(()=>caches.match(new URL('index.html',self.registration.scope))));return;}event.respondWith(caches.match(event.request).then(hit=>hit||fetch(event.request)));});
+`);

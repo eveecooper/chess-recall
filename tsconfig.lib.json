@@ -6,7 +6,5 @@
     "outDir": "lib",
     "rootDir": "src/core"
   },
-  "include": [
-    "src/core/**/*.ts"
-  ]
+  "include": ["src/core/**/*.ts"]
 }

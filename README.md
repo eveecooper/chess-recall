@@ -38,9 +38,9 @@ npm pack
 Install the resulting tarball in another TypeScript project:
 
 ```ts
-import { importText, Session, gradeFen } from 'chess-recall';
-const chapter = importText('1. e4 e5 *')[0];
-const session = new Session(chapter, { check: 'each', side: 'white' });
+import { importText, Session, gradeFen } from "chess-recall";
+const chapter = importText("1. e4 e5 *")[0];
+const session = new Session(chapter, { check: "each", side: "white" });
 ```
 
 The pure core lives in src/core. It has no UI or network dependency. The library is intended for ESM bundlers such as Vite. The UI lives in src/main.ts and src/style.css; browser persistence and Lichess access are separate modules.
@@ -52,3 +52,7 @@ The included GitHub Actions workflow builds, tests, and deploys to GitHub Pages 
 ## License and credits
 
 GPL-3.0-or-later. See LICENSE. Includes dependencies on Lichess chessops and Chessground under GPL-3.0-or-later. Piece artwork is Chessground’s bundled Cburnett set; retain upstream attribution. This project is not affiliated with Lichess. Reuse, modification, and redistribution are welcome under the license terms.
+
+## Browser checks
+
+With the dev server running, install Chromium with `npx playwright install --with-deps chromium`, then run `npm run test:browser`. Set `TEST_URL` to test a deployed site. The production build includes an app-shell service worker for offline reopening after the first successful load.
